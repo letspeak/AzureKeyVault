@@ -1,0 +1,39 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.7.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+}
+
+group = 'com.walgreens.azure'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('azureVersion', "2.2.0")
+}
+
+dependencies {
+	implementation 'com.microsoft.azure:azure-active-directory-spring-boot-starter'
+	implementation 'com.microsoft.azure:azure-keyvault-secrets-spring-boot-starter'
+	implementation 'com.microsoft.azure:azure-storage-spring-boot-starter'
+	implementation 'com.microsoft.azure:azure-active-directory-spring-boot-starter'
+	//runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "com.microsoft.azure:azure-spring-boot-bom:${azureVersion}"
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
